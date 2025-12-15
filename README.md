@@ -13,9 +13,9 @@ This is a **proof-of-concept implementation**, not a production-grade cryptograp
 - Cryptographically secure randomness (`secrets`)
 - SHA-256–based challenge computation
 - Minimal, auditable codebase
-- Easily extensible to EC-Schnorr or post-quantum schemes (e.g., Dilithium)
 
----
+
+
 
 ## Repository Structure
 schnorr-signature/
@@ -29,11 +29,6 @@ schnorr-signature/
 └── examples/
 └── demo.py
 
-yaml
-Copy code
-
----
-
 ## Cryptographic Parameters
 Defined in `params.py`:
 
@@ -45,23 +40,12 @@ They satisfy the Schnorr requirement:
 
 G^q mod p = 1
 
-yaml
-Copy code
-
----
-
 ## Algorithm Description
 
 ### Key Generation
 1. Choose private key `x ∈ [1, q−1]`
 2. Compute public key:
 Y = G^x mod p
-
-yaml
-Copy code
-
----
-
 ### Signature Generation
 Given message `m` and private key `x`:
 
@@ -85,11 +69,6 @@ Copy code
 Signature:
 (R, s)
 
-yaml
-Copy code
-
----
-
 ### Signature Verification
 Given `(R, s)` and public key `Y`:
 
@@ -101,8 +80,7 @@ Copy code
 2. Verify:
 G^s mod p == R · Y^c mod p
 
-yaml
-Copy code
+
 
 If the equation holds, the signature is valid.
 
@@ -125,46 +103,3 @@ Security Notes
 Uses cryptographically secure randomness
 
 Hash-based challenge prevents replay attacks
-
-Follows Schnorr’s mathematical specification strictly
-
-⚠️ This implementation is not hardened against side-channel attacks and should not be used in production systems without further protections and audits.
-
-Intended Use
-Cryptography coursework and labs
-
-Research prototypes
-
-FPGA / hardware co-design validation
-
-Comparison with ECDSA and Dilithium
-
-Educational demonstrations
-
-Future Work
-Elliptic Curve Schnorr (EC-Schnorr)
-
-Deterministic nonce generation (RFC-style)
-
-Batch verification
-
-Post-quantum migration (Dilithium)
-
-License
-Educational and research use only.
-
-Final Note
-This project emphasizes clarity, correctness, and architectural discipline.
-The code is deliberately explicit and minimal to support learning, verification, and extension.
-
-yaml
-Copy code
-
----
-
-If you want, I can:
-- tighten this for a **final-year project report**,  
-- rewrite it for a **research paper appendix**, or  
-- adapt it specifically for **FPGA / hardware documentation**.
-
-Just say which direction.
