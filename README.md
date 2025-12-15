@@ -17,17 +17,6 @@ This is a **proof-of-concept implementation**, not a production-grade cryptograp
 
 
 
-## Repository Structure
-schnorr-signature/
-│── README.md
-│── top_model.py # High-level API
-│── keygen.py # Key generation
-│── sign.py # Signature generation
-│── verify.py # Signature verification
-│── params.py # Public parameters (p, q, G)
-│── hash_utils.py # Hash-to-integer utility
-└── examples/
-└── demo.py
 
 ## Cryptographic Parameters
 Defined in `params.py`:
@@ -51,34 +40,22 @@ Given message `m` and private key `x`:
 
 1. Generate random nonce `r`
 2. Compute commitment:
-R = G^r mod p
-
-markdown
-Copy code
+            R = G^r mod p
 3. Compute challenge:
-c = H(m || R)
-
-markdown
-Copy code
+             c = H(m || R)
 4. Compute response:
-s = (r + c·x) mod q
-
-makefile
-Copy code
+           s = (r + c·x) mod q
 
 Signature:
-(R, s)
+            (R, s)
 
 ### Signature Verification
 Given `(R, s)` and public key `Y`:
 
 1. Recompute:
-c = H(m || R)
-
-markdown
-Copy code
+        c = H(m || R)
 2. Verify:
-G^s mod p == R · Y^c mod p
+        G^s mod p == R · Y^c mod p
 
 
 
@@ -99,7 +76,7 @@ signature = schnorr.sign_message(message, private_key)
 
 is_valid = schnorr.verify_signature(message, signature, public_key)
 print("Signature valid:", is_valid)
+
 Security Notes
 Uses cryptographically secure randomness
-
 Hash-based challenge prevents replay attacks
